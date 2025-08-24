@@ -16,8 +16,8 @@ class Settings(BaseSettings):
     VERIFY_RETELL_SIGNATURE: bool = True
 
     #Amadeus API Settings
-    AMADEUS_TOKEN_URL: str = "https://api.amadeus.com/v1/security/oauth2/token"
-    AMADEUS_FLIGHT_URL: str = "https://api.amadeus.com/v2/shopping/flight-offers"
+    AMADEUS_TOKEN_URL: str = "https://test.api.amadeus.com/v1/security/oauth2/token"
+    AMADEUS_FLIGHT_URL: str = "https://test.api.amadeus.com/v2/shopping/flight-offers"
     AMADEUS_TOKEN_CACHE_TIME: int = 1800
 
     #Flight Search Settings
