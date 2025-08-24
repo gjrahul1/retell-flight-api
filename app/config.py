@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     RETELL_API_KEY: Optional[str] = None
     AMADEUS_API_KEY: Optional[str] = None
     AMADEUS_API_SECRET: Optional[str] = None
+    OPENWEATHER_API_KEY: Optional[str] = None
 
     #APP Settings
     PORT: int = 8000
