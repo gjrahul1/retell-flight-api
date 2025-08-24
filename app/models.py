@@ -48,3 +48,11 @@ class WeatherRequest(BaseModel):
 
 class ItineraryRequest(BaseModel):
     name: str = Field(..., description="Place name to get itineraries for")
+
+class ExchangeRateRequest(BaseModel):
+    from_currency: str = Field(..., alias="from", description="Source currency code (e.g., USD)")
+    to_currency: str = Field(..., alias="to", description="Target currency code (e.g., EUR)")
+    amount: float = Field(..., description="Amount to convert")
+
+class TimeRequest(BaseModel):
+    timeZone: str = Field(..., description="Timezone identifier (e.g., America/New_York)")
