@@ -35,7 +35,7 @@ class AmadeusService:
                 timeout=settings.REQUEST_TIMEOUT
             )
 
-            if response != 200:
+            if response.status_code != 200:
                 raise Exception(f"Token request failed: {response.status_code}")
 
             token_data = response.json()
@@ -66,7 +66,7 @@ class AmadeusService:
         if search_params.get("return_date"):
             params["returnDate"] = search_params["return_date"]
 
-        async with httpx.AsyncClient as client:
+        async with httpx.AsyncClient() as client:
             response = await client.get(
                 settings.AMADEUS_FLIGHT_URL,
                 headers = {
