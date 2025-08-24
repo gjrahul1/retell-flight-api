@@ -16,7 +16,7 @@ class FlightFormatter:
 
         for i, flight in enumerate(flights, start=1):
             try:
-                flight_info = self._extract_fligh_info(flight)
+                flight_info = self._extract_flight_info(flight)
                 result += self._format_single_flight(i, flight_info)
 
             except Exception as e:
