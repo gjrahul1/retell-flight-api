@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import flights, weather, itinerary, exchange, time
+from app.routers import flights, weather, itinerary, exchange, time, retell
 from app.config import settings
 import uvicorn
 import socket
@@ -70,6 +70,7 @@ app.include_router(weather.router)
 app.include_router(itinerary.router)
 app.include_router(exchange.router)
 app.include_router(time.router)
+app.include_router(retell.router)
 
 @app.get("/")
 async def root():
