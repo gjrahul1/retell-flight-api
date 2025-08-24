@@ -45,3 +45,6 @@ class FlightSearchResponse(BaseModel):
 
 class WeatherRequest(BaseModel):
     q: str = Field(..., description="Location query (city name, country, etc.)")
+
+class ItineraryRequest(BaseModel):
+    name: str = Field(..., description="Place name to get itineraries for")

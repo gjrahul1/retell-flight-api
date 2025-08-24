@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import flights, weather
+from app.routers import flights, weather, itinerary
 from app.config import settings
 import uvicorn
 import socket
@@ -67,6 +67,7 @@ app.add_middleware(
 # Include routers
 app.include_router(flights.router)
 app.include_router(weather.router)
+app.include_router(itinerary.router)
 
 @app.get("/")
 async def root():
@@ -78,7 +79,8 @@ async def health():
         "status": "healthy",
         "amadeus_configured": bool(settings.AMADEUS_API_KEY and settings.AMADEUS_API_SECRET),
         "retell_configured": bool(settings.RETELL_API_KEY),
-        "openweather_configured": bool(settings.OPENWEATHER_API_KEY)
+        "openweather_configured": bool(settings.OPENWEATHER_API_KEY),
+        "opentripmap_configured": bool(settings.OPENTRIPMAP_API_KEY)
     }
 
 def find_free_port():
