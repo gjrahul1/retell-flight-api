@@ -42,3 +42,6 @@ class FlightSearchResponse(BaseModel):
     total_results: int
     origin: str
     destination: str
+
+class WeatherRequest(BaseModel):
+    q: str = Field(..., description="Location query (city name, country, etc.)")
