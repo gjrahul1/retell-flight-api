@@ -1,11 +1,10 @@
 from typing import Dict, Any
 from app.services.amadeus import amadeus_service
-from app.utils.formatters import FlightFormatter
 from app.models import FlightSearchRequest
 
 class FlightService:
     def __init__(self):
-        self.formatter = FlightFormatter()
+        pass
 
     def validate_search_request(self, request: FlightSearchRequest) -> tuple[bool,str]:
         """Validate Flight Search Request"""
@@ -27,12 +26,12 @@ class FlightService:
         return True, ""
 
 
-    async def search_flights(self, request: FlightSearchRequest) -> str:
-        """Search Flights and return formatted response"""
+    async def search_flights(self, request: FlightSearchRequest) -> Dict[str, Any]:
+        """Search Flights and return raw data"""
 
         is_valid, error_msg = self.validate_search_request(request)
         if not is_valid:
-            return f"I need valid flight information: {error_msg}"
+            return {"error": f"I need valid flight information: {error_msg}"}
 
         try:
             # Prepare search parameters
@@ -47,18 +46,13 @@ class FlightService:
                 search_params["return_date"] = request.return_date
 
             flights_data = await amadeus_service.search_flights(search_params)
-
-            return self.formatter.format_for_voice(
-                flights_data, 
-                request.origin.upper(), 
-                request.destination.upper()
-            )
+            return flights_data
             
         except ValueError as e:
-            return f"Invalid search parameters: {str(e)}"
+            return {"error": f"Invalid search parameters: {str(e)}"}
         except Exception as e:
             print(f"Flight search error: {e}")
-            return "I'm having trouble searching for flights right now. Please try again."
+            return {"error": "I'm having trouble searching for flights right now. Please try again."}
 
 # Singleton instance
 flight_service = FlightService()

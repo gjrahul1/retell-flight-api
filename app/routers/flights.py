@@ -7,7 +7,7 @@ import json
 
 router = APIRouter(prefix="/api/flights", tags=["flights"])
 
-@router.post("/search", response_model=RetellResponse)
+@router.post("/search")
 async def search_flights(flight_request: FlightSearchRequest):
     """Main endpoint for flight search from Retell AI"""
 
@@ -15,13 +15,12 @@ async def search_flights(flight_request: FlightSearchRequest):
         print(f"Received request: {flight_request.model_dump()}")
 
         result = await flight_service.search_flights(flight_request)
-        return JSONResponse(content={"response": result, "response_id": 1})
+        return JSONResponse(content=result)
 
     except HTTPException:
         raise
     except Exception as e:
         print(f"Unexpected error: {e}")
         return JSONResponse(content={
-        "response": "Sorry, something went wrong with your flight search. Please try again.",
-        "response_id": 1
+        "error": "Sorry, something went wrong with your flight search. Please try again."
         })
